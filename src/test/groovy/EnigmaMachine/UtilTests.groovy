@@ -29,5 +29,4 @@ class UtilTests extends Specification {
         expect: "The util function should combine them"
             assertThat(CharUtil.arrayPrefix(arr, c)).isEqualTo('chararray'.toCharArray())
     }
-    def
 }
