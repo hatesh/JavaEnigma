@@ -2,6 +2,7 @@ package EnigmaMachine;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Plugboard {
@@ -29,6 +30,19 @@ public class Plugboard {
         }
     }
 
+    public int passInt(int i) {
+        int rtn;
+        try {
+            Plug plug = this.plugs.stream().filter(p -> p.getInputInt() == i).findAny().get();
+            rtn = plug.getOutputInt();
+        } catch (NoSuchElementException e) {
+            rtn = i;
+        }
+        return rtn;
+    }
+
+    public void addPlug(Plug p) { this.plugs.add(p); }
+
     public ArrayList<Plug> getPlugs() {
         return plugs;
     }
@@ -44,6 +58,7 @@ public class Plugboard {
     public void setPlugged(ArrayList<Integer> plugged) {
         this.plugged = plugged;
     }
+
     public String toString() {
         String string = "Current Plugboard status:\n";
         for (Plug p : plugs) {
