@@ -1,17 +1,19 @@
 package EnigmaMachine;
 
-import java.lang.reflect.Array;
+import Exceptions.MaxPopulationException;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-public class Plugboard {
+public class PlugBoard {
     private ArrayList<Plug> plugs = new ArrayList<>();
     private ArrayList<Integer> plugged = new ArrayList<>();
-    public Plugboard() {
+    private int maxPairs = 10;
+    public PlugBoard() {
         this("Random");
     }
-    public Plugboard(String config) {
+    public PlugBoard(String config) {
         if (config.equals("Random")) {
             Random random = new Random();
             int input = random.nextInt(25);
@@ -52,7 +54,13 @@ public class Plugboard {
         return rtn;
     }
 
-    public void addPlug(Plug p) { this.plugs.add(p); }
+    public void addPlug(Plug p) throws MaxPopulationException {
+        if (this.plugs.size() < 10) {
+            this.plugs.add(p);
+        } else {
+            throw new MaxPopulationException("PlugBoard.plugs", this.plugs, 10);
+        }
+    }
 
     public ArrayList<Plug> getPlugs() {
         return plugs;
@@ -66,16 +74,18 @@ public class Plugboard {
         return plugged;
     }
 
-    public void setPlugged(ArrayList<Integer> plugged) {
-        this.plugged = plugged;
-    }
+    public void setPlugged(ArrayList<Integer> plugged) { this.plugged = plugged; }
+
+    public void setMaxPairs(int pairs) { this.maxPairs = pairs; }
+
+    public int getMaxPairs() { return this.getMaxPairs(); }
 
     public String toString() {
-        String string = "Current Plugboard status:\n";
+        String string = "Current PlugBoard status:\n";
         for (Plug p : plugs) {
             string += p.toString() + "\n";
         }
-        string += "Plugged arraylist: " + this.plugged.toString();
+        string += "Plugged ArrayList: " + this.plugged.toString();
         return string;
     }
 }
