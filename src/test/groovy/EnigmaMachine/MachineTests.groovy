@@ -46,5 +46,18 @@ class MachineTests extends Specification {
         expect: "return 6 when 6 is passed"
         plugboard.passInt(6) == 6
     }
+    def "Plugboard pass char where input is paired"() {
+        given: "Plugboard is set up with a pair"
+        def plugboard = new Plugboard("Custom")
+        plugboard.addPlug(new Plug('C'.toCharacter(),'H'.toCharacter()))
+        expect: "return H when C is passed"
+        plugboard.passChar('C'.toCharacter()) == 'H'.toCharacter()
+    }
+    def "Plugboard pass char where input is not paired"() {
+        given: "Plugboard is set up"
+        def plugboard = new Plugboard("Custom")
+        expect: "return N when N is passed"
+        plugboard.passChar('N'.toCharacter()) == 'N'.toCharacter()
+    }
 }
 

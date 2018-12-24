@@ -41,6 +41,17 @@ public class Plugboard {
         return rtn;
     }
 
+    public int passChar(char c) {
+        char rtn;
+        try {
+            Plug plug = this.plugs.stream().filter(p -> p.getInputChar() == c).findAny().get();
+            rtn = plug.getOutputChar();
+        } catch (NoSuchElementException e) {
+            rtn = c;
+        }
+        return rtn;
+    }
+
     public void addPlug(Plug p) { this.plugs.add(p); }
 
     public ArrayList<Plug> getPlugs() {
