@@ -12,5 +12,11 @@ class MachineTests extends Specification {
             // assertThat(plug.getInputChar(), 'A')
         plug.getInputChar() == 'A'.toCharacter()
     }
+    def "Test auto set values"() {
+        given: "A new plug is made with letters"
+            def plug = new Plug('D'.toCharacter(), 'P'.toCharacter())
+        expect: "The integer values should match"
+            plug.getInputInt() == 3
+    }
 }
 

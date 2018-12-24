@@ -7,10 +7,8 @@ public class EnigmaPart {
     public int outputInt;
 
     public EnigmaPart() {
-        inputChar = 'A';
-        outputChar = 'N';
-        inputInt = 0;
-        outputInt = 13;
+        setInput('A');
+        setOutput('N');
     }
 
     public EnigmaPart(int input, int output) {
@@ -41,6 +39,10 @@ public class EnigmaPart {
     public int getOutputInt() { return this.outputInt; }
     public char getInputChar() { return this.inputChar; }
     public char getOutputChar() { return  this.outputChar; }
-    public int getValue(char c) { return Character.getNumericValue(c) - 65; }
-    public char getLetter(int i) { return (char) (i + 65); }
+    public int getValue(char c) { return Character.getNumericValue(c) - 10; }
+    public char getLetter(int i) { return (char) (i + 10); }
+
+    public String toString() {
+        return "Input Char " + getInputInt() + " '" + getInputChar() + "' Output Char " + getOutputInt() + " '" + getOutputChar() + "'";
+    }
 }

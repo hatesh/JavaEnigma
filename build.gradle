@@ -50,7 +50,7 @@ dependencies {
 
 test {
     useJUnit {
-        includeCategories 'com.testwithspring.master.UnitTest'
+        includeCategories 'EnigmaMachine.UnitTest'
     }
     testLogging {
         showStandardStreams = true
