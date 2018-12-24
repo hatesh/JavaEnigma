@@ -3,6 +3,7 @@ package EnigmaMachine;
 import Exceptions.MaxPopulationException;
 
 import static Util.CharUtil.getValue;
+import static Util.CharUtil.getLetter;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -16,6 +17,23 @@ public class Gear {
     public Gear(String name, String cypherbet) {
         this.name = name;
         this.setMappings(cypherbet);
+        currentIndex = 0;
+    }
+    public Gear(String name, String cypherbet, int initialIndex) {
+        this(name, cypherbet);
+        this.setCurrentIndex(initialIndex);
+    }
+
+    public int shiftAndPassInt(int i) {
+        int shiftedInput = this.currentIndex + i;
+        shiftedInput %= 26;
+        return passInt(shiftedInput);
+    }
+
+    public char shiftAndPassChar(char c) {
+        // this.updateCurrentIndex();
+        // return passChar(c);
+        return getLetter(shiftAndPassInt(getValue(c)));
     }
 
     public int passInt(int i) {
@@ -47,6 +65,7 @@ public class Gear {
             throw new MaxPopulationException("Gear.mappings", this.mappings, this.maxMappings);
         }
     }
+
     public void setMappings(String cypherbet) {
         char[] mapChars = cypherbet.toCharArray();
         for (char c: mapChars) {
@@ -57,6 +76,19 @@ public class Gear {
             }
         }
     }
+
+    public int getCurrentIndex() { return this.currentIndex; }
+
+    public void setCurrentIndex(int index) {
+        index %= 26;
+        this.currentIndex = index;
+    }
+
+    public void updateCurrentIndex() {
+        this.currentIndex++;
+        this.currentIndex = this.currentIndex % 26;
+    }
+
     public ArrayList<Plug> getMappings() { return this.mappings; }
 
     public String toString() {
@@ -64,6 +96,7 @@ public class Gear {
         for (Plug p : mappings) {
             string += p.toString() + "\n";
         }
+        string += "Current Index: " + Integer.toString(this.currentIndex);
         return string;
     }
 }

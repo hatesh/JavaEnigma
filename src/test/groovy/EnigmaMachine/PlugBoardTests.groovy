@@ -42,6 +42,20 @@ class PlugBoardTests extends Specification {
         expect: "No duplicate values in the used letters"
             assertThat(plugBoard.getPlugged()).doesNotHaveDuplicates()
     }
+    def "Default plugBoard Doesn't exceed max pairs"() {
+        given: "A default PlugBoard"
+        def plugBoard = new PlugBoard('Default')
+        when: "Attempt to add another plug"
+        plugBoard.addPlug(new Plug())
+        then: "A MaxPopulationException is thrown"
+        thrown(MaxPopulationException)
+    }
+    def "Default plugBoard doesn't have any repeating letters"() {
+        given: "A default PlugBoard"
+        def plugBoard = new PlugBoard('Default')
+        expect: "No duplicate values in the used letters"
+        assertThat(plugBoard.getPlugged()).doesNotHaveDuplicates()
+    }
     def "PlugBoard pass int where input is paired"() {
         given: "PlugBoard is set up with a pair"
             def plugBoard = new PlugBoard("Custom")

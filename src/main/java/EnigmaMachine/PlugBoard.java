@@ -27,9 +27,21 @@ public class PlugBoard {
                 plugged.add(input);
                 plugged.add(output);
             }
+        } else if(config.equals("Default")) {
+            this.setPlugs(this.mapPlugBoard("AF,DE,FC,QW,VB,TH,KL,JM,XO,US"));
         } else {
             // TODO
         }
+    }
+
+    public ArrayList<Plug> mapPlugBoard(String cypherbet) {
+        String[] wires = cypherbet.split(",");
+        ArrayList<Plug> plugLayout = new ArrayList<>();
+        for (String wire : wires) {
+            char[] values = wire.toCharArray();
+            plugLayout.add(new Plug(values[0], values[1]));
+        }
+        return plugLayout;
     }
 
     public int passInt(int i) {

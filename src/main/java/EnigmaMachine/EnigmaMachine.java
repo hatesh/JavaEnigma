@@ -8,8 +8,10 @@ import static Util.CharUtil.getLetter;
 
 public class EnigmaMachine {
     private PlugBoard plugBoard;
+    private GearBox gearBox;
     public EnigmaMachine() {
-        plugBoard = new PlugBoard();
+        plugBoard = new PlugBoard("Default");
+        gearBox = new GearBox();
     }
     public String encode(String plainString) {
         // System.out.println("plainString: " + plainString);
@@ -27,6 +29,7 @@ public class EnigmaMachine {
     }
     public char encode(char plainChar) {
         // System.out.println("plainChar: " + plainChar);
-        return plugBoard.passChar(plainChar);
+        // return plugBoard.passChar(plainChar);
+        return gearBox.passChar(plugBoard.passChar(plainChar));
     }
 }
