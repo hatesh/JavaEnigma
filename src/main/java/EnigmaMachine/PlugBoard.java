@@ -18,7 +18,7 @@ public class PlugBoard {
             Random random = new Random();
             int input = random.nextInt(25);
             int output = random.nextInt(25);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < this.maxPairs; i++) {
                 while (plugged.contains(input) || plugged.contains(output) || input == output) {
                     input = random.nextInt(25);
                     output = random.nextInt(25);
@@ -43,7 +43,7 @@ public class PlugBoard {
         return rtn;
     }
 
-    public int passChar(char c) {
+    public char passChar(char c) {
         char rtn;
         try {
             Plug plug = this.plugs.stream().filter(p -> p.getInputChar() == c).findAny().get();
