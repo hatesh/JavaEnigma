@@ -1,6 +1,7 @@
 package EnigmaMachine
 
 import Util.CharUtil
+import Util.UnitTest
 import spock.lang.Specification
 import org.junit.experimental.categories.Category
 

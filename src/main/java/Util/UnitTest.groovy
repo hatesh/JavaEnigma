@@ -1,4 +1,4 @@
-package EnigmaMachine
+package Util
 
 interface UnitTest {
 }
