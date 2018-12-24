@@ -40,7 +40,7 @@ public class EnigmaPart {
     public char getInputChar() { return this.inputChar; }
     public char getOutputChar() { return  this.outputChar; }
     public int getValue(char c) { return Character.getNumericValue(c) - 10; }
-    public char getLetter(int i) { return (char) (i + 10); }
+    public char getLetter(int i) { return (char) (i + 65); }
 
     public String toString() {
         return "Input Char " + getInputInt() + " '" + getInputChar() + "' Output Char " + getOutputInt() + " '" + getOutputChar() + "'";

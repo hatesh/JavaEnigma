@@ -9,14 +9,21 @@ class MachineTests extends Specification {
         given: "A new plug is made"
             def plug = new Plug()
         expect: "The default input character A is set"
-            // assertThat(plug.getInputChar(), 'A')
-        plug.getInputChar() == 'A'.toCharacter()
+            plug.getInputChar() == 'A'.toCharacter()
     }
-    def "Test auto set values"() {
+    def "Test auto set integers"() {
         given: "A new plug is made with letters"
             def plug = new Plug('D'.toCharacter(), 'P'.toCharacter())
         expect: "The integer values should match"
             plug.getInputInt() == 3
+    }
+    def "Test auto set characters"() {
+        given: "A new plug is made with letters"
+            def plug = new Plug(3, 13)
+        expect: "The input integer should be D"
+            plug.getInputChar() == 'D'.toCharacter()
+        and: "The output character should be N"
+            plug.getOutputChar() == 'N'.toCharacter()
     }
 }
 
