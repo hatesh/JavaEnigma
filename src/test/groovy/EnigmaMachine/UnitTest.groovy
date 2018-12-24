@@ -1,0 +1,4 @@
+package EnigmaMachine
+
+interface UnitTest {
+}
