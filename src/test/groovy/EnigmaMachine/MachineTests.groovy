@@ -3,6 +3,12 @@ package EnigmaMachine
 import spock.lang.Specification
 import org.junit.experimental.categories.Category
 
+// import static org.hamcrest.Matchers.*
+// import static org.hamcrest.Matchers.either
+// import static org.hamcrest.MatcherAssert.assertThat
+
+import static org.assertj.core.api.Assertions.*;
+
 @Category(UnitTest.class)
 class MachineTests extends Specification {
     def "Default plug input"() {
@@ -24,6 +30,12 @@ class MachineTests extends Specification {
             plug.getInputChar() == 'D'.toCharacter()
         and: "The output character should be N"
             plug.getOutputChar() == 'N'.toCharacter()
+    }
+    def "Random plugboard doesn't have any repeating letters"() {
+        given: "A random plugboard"
+            def plugboard = new Plugboard()
+        expect: "No duplicate values in the used letters"
+            assertThat(plugboard.getPlugged()).doesNotHaveDuplicates()
     }
 }
 
