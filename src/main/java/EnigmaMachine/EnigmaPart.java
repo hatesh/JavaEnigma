@@ -1,4 +1,4 @@
-package main.java.EnigmaMachine;
+package EnigmaMachine;
 
 public class EnigmaPart {
     public char inputChar;
