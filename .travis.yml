@@ -1,6 +1,6 @@
-install: gradle wrapper --gradle-version 4.2
+install: gradle wrapper --gradle-version 4.8
 
 language: groovy
 
 script:
-    - ./gradlew test
+    - ./gradlew clean test
