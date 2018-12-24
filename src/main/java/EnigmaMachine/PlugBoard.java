@@ -55,10 +55,10 @@ public class PlugBoard {
     }
 
     public void addPlug(Plug p) throws MaxPopulationException {
-        if (this.plugs.size() < 10) {
+        if (this.plugs.size() < maxPairs) {
             this.plugs.add(p);
         } else {
-            throw new MaxPopulationException("PlugBoard.plugs", this.plugs, 10);
+            throw new MaxPopulationException("PlugBoard.plugs", this.plugs, this.maxPairs);
         }
     }
 
