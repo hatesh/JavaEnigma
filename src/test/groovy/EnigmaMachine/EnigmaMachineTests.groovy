@@ -18,4 +18,15 @@ class EnigmaMachineTests extends Specification {
         then: "They should be the same"
             assertThat(msg1).isEqualTo(msg2)
     }
+//    def "Can decrypt?"() {
+//        given: "there are two enigma machines with default configs"
+//            def m1 = new EnigmaMachine()
+//            def m2 = new EnigmaMachine()
+//        when: "One encodes plaintext and the other encodes the cipher text"
+//            def plain = "H"
+//            def cipher = m1.encode(plain)
+//            def decoded = m2.encode(cipher)
+//        then: "They should be the same"
+//            assertThat(decoded).isEqualTo(plain)
+//    }
 }

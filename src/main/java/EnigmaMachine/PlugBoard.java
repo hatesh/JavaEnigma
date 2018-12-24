@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
+import static Util.CharUtil.getValue;
+
 public class PlugBoard {
     private ArrayList<Plug> plugs = new ArrayList<>();
     private ArrayList<Integer> plugged = new ArrayList<>();
@@ -28,7 +30,7 @@ public class PlugBoard {
                 plugged.add(output);
             }
         } else if(config.equals("Default")) {
-            this.setPlugs(this.mapPlugBoard("AF,DE,FC,QW,VB,TH,KL,JM,XO,US"));
+            this.setPlugs(this.mapPlugBoard("AF,DE,GC,QW,VB,TH,KL,JM,XO,US"));
         } else {
             // TODO
         }
@@ -40,11 +42,13 @@ public class PlugBoard {
         for (String wire : wires) {
             char[] values = wire.toCharArray();
             plugLayout.add(new Plug(values[0], values[1]));
+            plugged.add(getValue(values[0]));
+            plugged.add(getValue(values[1]));
         }
         return plugLayout;
     }
 
-    public int passInt(int i) {
+    public int passInputInt(int i) {
         int rtn;
         try {
             Plug plug = this.plugs.stream().filter(p -> p.getInputInt() == i).findAny().get();
@@ -55,10 +59,21 @@ public class PlugBoard {
         return rtn;
     }
 
-    public char passChar(char c) {
+    public char passInputChar(char c) {
         char rtn;
         try {
             Plug plug = this.plugs.stream().filter(p -> p.getInputChar() == c).findAny().get();
+            rtn = plug.getOutputChar();
+        } catch (NoSuchElementException e) {
+            rtn = c;
+        }
+        return rtn;
+    }
+
+    public char passOutputChar(char c) {
+        char rtn;
+        try {
+            Plug plug = this.plugs.stream().filter(p -> p.getOutputChar() == c).findAny().get();
             rtn = plug.getOutputChar();
         } catch (NoSuchElementException e) {
             rtn = c;

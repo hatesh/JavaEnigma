@@ -32,7 +32,7 @@ public class Gear {
 
     public char shiftAndPassChar(char c) {
         // this.updateCurrentIndex();
-        // return passChar(c);
+        // return passInputChar(c);
         return getLetter(shiftAndPassInt(getValue(c)));
     }
 
