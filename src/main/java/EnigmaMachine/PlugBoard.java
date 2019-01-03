@@ -17,35 +17,42 @@ public class PlugBoard {
     }
     public PlugBoard(String config) {
         if (config.equals("Random")) {
-            Random random = new Random();
-            int input = random.nextInt(25);
-            int output = random.nextInt(25);
-            for (int i = 0; i < this.maxPairs / 2; i++) {
-                while (plugged.contains(input) || plugged.contains(output) || input == output) {
-                    input = random.nextInt(25);
-                    output = random.nextInt(25);
-                }
-                try {
-                    this.addPlug(new Plug(input, output));
-                    plugged.add(input);
-                    plugged.add(output);
-                } catch (MaxPopulationException e) {
-                    System.out.println(e.getMessage());
-                }
-
-            }
+            randomiseMapping();
         } else if (config.equals("Default")) {
-            try {
-                this.setPlugs(this.mapPlugBoard("AF,DE,GC,QW,VB,TH,KL,JM,XO,US"));
-            } catch (MaxPopulationException e) {
-                System.out.println(e.getMessage());
-            }
+            defaultMapping();
         } else if (config.equals("Empty") || config.equals("Custom")) {
             this.plugs.clear();
             this.plugged.clear();
         } else {
             try {
                 this.setPlugs(this.mapPlugBoard(config));
+            } catch (MaxPopulationException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void defaultMapping() {
+        try {
+            this.setPlugs(this.mapPlugBoard("AF,DE,GC,QW,VB,TH,KL,JM,XO,US"));
+        } catch (MaxPopulationException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void randomiseMapping() {
+        Random random = new Random();
+        int input = random.nextInt(25);
+        int output = random.nextInt(25);
+        for (int i = 0; i < this.maxPairs / 2; i++) {
+            while (plugged.contains(input) || plugged.contains(output) || input == output) {
+                input = random.nextInt(25);
+                output = random.nextInt(25);
+            }
+            try {
+                this.addPlug(new Plug(input, output));
+                plugged.add(input);
+                plugged.add(output);
             } catch (MaxPopulationException e) {
                 System.out.println(e.getMessage());
             }
