@@ -9,7 +9,6 @@ public class Main {
         String plain = "HELLO WORLD";
         String cipher = em1.encode(plain);
         String decrypt = em2.encode(cipher);
-//        System.out.println(em1.getPlugBoard().toString());
         System.out.println(plain);
         System.out.println(cipher);
         System.out.println(decrypt);

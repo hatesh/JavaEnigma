@@ -18,9 +18,9 @@ class GearBoxTests extends Specification {
     def "Pass through default gearbox"() {
         given: "The default gearbox is made"
             def gearBox = new GearBox()
-        expect: "The gearBox outputs O when A is inputted"
+        expect: "The gearBox outputs G when A is inputted"
             assertThat(gearBox.encodeCharWithShift('A'.toCharacter()))
-                    .isEqualTo('V'.toCharacter())
+                    .isEqualTo('G'.toCharacter())
     }
 
 }

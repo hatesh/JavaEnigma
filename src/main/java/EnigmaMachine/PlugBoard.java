@@ -40,7 +40,7 @@ public class PlugBoard {
             } catch (MaxPopulationException e) {
                 System.out.println(e.getMessage());
             }
-        } else if (config.equals("Empty")) {
+        } else if (config.equals("Empty") || config.equals("Custom")) {
             this.plugs.clear();
             this.plugged.clear();
         } else {
