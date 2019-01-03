@@ -44,7 +44,11 @@ public class EnigmaPart {
     public char getOutputChar() { return  this.outputChar; }
 
 
+//    public String toString() {
+//        return "Input Char " + getInputInt() + " '" + getInputChar() + "' Output Char " + getOutputInt() + " '" + getOutputChar() + "'";
+//    }
+
     public String toString() {
-        return "Input Char " + getInputInt() + " '" + getInputChar() + "' Output Char " + getOutputInt() + " '" + getOutputChar() + "'";
+        return getInputChar() + ">" + getOutputChar();
     }
 }

@@ -29,4 +29,16 @@ class UtilTests extends Specification {
         expect: "The util function should combine them"
             assertThat(CharUtil.arrayPrefix(arr, c)).isEqualTo('chararray'.toCharArray())
     }
+    def "Check getValue 1"() {
+        given: "Get the value of A"
+        def value = CharUtil.getValue('A'.toCharacter())
+        expect: "value to be 0"
+        assertThat(value).isEqualTo(0)
+    }
+    def "Check getLetter 1"() {
+        given: "Get the letter of 0"
+            def letter = CharUtil.getLetter(0)
+        expect: "letter to be A"
+            assertThat(letter).isEqualTo('A'.toCharacter())
+    }
 }

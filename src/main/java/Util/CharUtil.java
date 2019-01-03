@@ -21,5 +21,8 @@ public class CharUtil {
         return rtn;
     }
     public static int getValue(char c) { return Character.getNumericValue(c) - 10; }
-    public static char getLetter(int i) { return (char) (i + 65); }
+    public static char getLetter(int i) {
+        if (i < 0) i += 26;
+        return (char) (i + 65);
+    }
 }

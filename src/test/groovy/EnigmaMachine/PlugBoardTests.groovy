@@ -28,7 +28,7 @@ class PlugBoardTests extends Specification {
         and: "The output character should be N"
             assertThat(plug.getOutputChar()).isEqualTo('N'.toCharacter())
     }
-    def "Random plugBoard Doesn't exceed max pairs"() {
+    def "Random plugBoard doesn't exceed max pairs"() {
         given: "A random PlugBoard"
             def plugBoard = new PlugBoard()
         when: "Attempt to add another plug"
@@ -42,7 +42,7 @@ class PlugBoardTests extends Specification {
         expect: "No duplicate values in the used letters"
             assertThat(plugBoard.getPlugged()).doesNotHaveDuplicates()
     }
-    def "Default plugBoard Doesn't exceed max pairs"() {
+    def "Default plugBoard doesn't exceed max pairs"() {
         given: "A default PlugBoard"
             def plugBoard = new PlugBoard('Default')
         when: "Attempt to add another plug"
@@ -61,28 +61,36 @@ class PlugBoardTests extends Specification {
             def plugBoard = new PlugBoard("Custom")
             plugBoard.addPlug(new Plug(3,23))
         expect: "return 23 when 3 is passed"
-            assertThat(plugBoard.passInputInt(3)).isEqualTo(23)
+            assertThat(plugBoard.passInt(3)).isEqualTo(23)
     }
     def "PlugBoard pass int where input is not paired"() {
         given: "PlugBoard is set up"
             def plugBoard = new PlugBoard("Custom")
         expect: "return 6 when 6 is passed"
-            assertThat(plugBoard.passInputInt(6)).isEqualTo(6)
+            assertThat(plugBoard.passInt(6)).isEqualTo(6)
     }
     def "PlugBoard pass char where input is paired"() {
         given: "PlugBoard is set up with a pair"
             def plugBoard = new PlugBoard("Custom")
             plugBoard.addPlug(new Plug('C'.toCharacter(),'H'.toCharacter()))
         expect: "return H when C is passed"
-            // plugBoard.passInputChar('C'.toCharacter()) == 'H'.toCharacter()
-            assertThat((char) plugBoard.passInputChar('C'.toCharacter())).isEqualTo('H'.toCharacter())
+            assertThat((char) plugBoard.passChar('C'.toCharacter())).isEqualTo('H'.toCharacter())
     }
     def "PlugBoard pass char where input is not paired"() {
         given: "PlugBoard is set up"
             def plugBoard = new PlugBoard("Custom")
         expect: "return N when N is passed"
-            // plugBoard.passInputChar('N'.toCharacter()) == 'N'.toCharacter()
-            assertThat((char) plugBoard.passInputChar('N'.toCharacter())).isEqualTo('N'.toCharacter())
+            // plugBoard.passChar('N'.toCharacter()) == 'N'.toCharacter()
+            assertThat((char) plugBoard.passChar('N'.toCharacter())).isEqualTo('N'.toCharacter())
+    }
+    def "PlugBoard passes char both ways correctly"() {
+        given: "PlugBoard is set up with a pair"
+        def plugBoard = new PlugBoard("Custom")
+        plugBoard.addPlug(new Plug('C'.toCharacter(),'H'.toCharacter()))
+        expect: "return C when C is passed"
+        assertThat((char) plugBoard.passChar(
+                (char) plugBoard.passChar('C'.toCharacter())))
+                .isEqualTo('C'.toCharacter())
     }
 }
 
