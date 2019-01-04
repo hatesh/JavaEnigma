@@ -1,5 +1,6 @@
 package EnigmaMachine;
 
+import Exceptions.IncorrectCypherbetException;
 import Exceptions.MaxPopulationException;
 
 import java.util.ArrayList;
@@ -20,34 +21,30 @@ public class Gear {
     }
 
     public Gear(String name, String cypherbet, int initialIndex) {
-        this.name = name;
-        this.setMappings(cypherbet);
+
+        try {
+            this.name = name;
+            this.setMappings(cypherbet);
+        } catch (IncorrectCypherbetException e) {
+            this.name = "Invalid";
+        }
+
         this.setCurrentIndex(initialIndex);
     }
 
     public int passInputIntWithShifts(int input) {
-//        System.out.println("Gear " + name + " Passing Input");
-//        System.out.println("Pre Rotation Input: " + getLetter(input));
         input = (input + this.currentIndex) % 26;
-//        System.out.println("Rotated Input [" + currentIndex + "]: " + getLetter(input));
         int rtn = passInputInt(input);
-//        System.out.println("Pre Rotation Return: " + getLetter(rtn));
         rtn = (rtn + this.currentIndex) % 26;
-//        System.out.println("Rotated Return [" + currentIndex + "]: " + getLetter(rtn));
         return rtn;
     }
 
     public int passOutputIntWithShifts(int output) {
-//        System.out.println("Gear " + name + " Passing Output");
-//        System.out.println("Pre Rotation Output: " + getLetter(output));
         output = (output - currentIndex) % 26;
         if (output < 0) output += 26;
-//        System.out.println("Rotated Output[" + currentIndex + "]: " + getLetter(output));
         int rtn = passOutputInt(output);
-//        System.out.println("Pre Rotation Return: " + getLetter(rtn));
         rtn = (rtn - this.currentIndex) % 26;
         if (rtn < 0) rtn += 26;
-//        System.out.println("Rotated Return [" + currentIndex + "]: " + getLetter(rtn));
         return rtn;
     }
 
@@ -96,28 +93,14 @@ public class Gear {
     }
 
     public char passInputCharWithShifts(char c) {
-//        System.out.println("input char: " + c);
-//        System.out.println("input value: " + getValue(c));
-//        System.out.println("return value: " + passInputIntWithShifts(getValue(c)));
-//        System.out.println("return letter: " + getLetter(passInputIntWithShifts(getValue(c))));
         return getLetter(passInputIntWithShifts(getValue(c)));
     }
 
     public char passOutputCharWithShifts(char c) {
-//        System.out.println("output char: " + c);
-//        System.out.println("output value: " + getValue(c));
-//        System.out.println("return value: " + passOutputIntWithShifts(getValue(c)));
-//        System.out.println("return letter: " + getLetter(passOutputIntWithShifts(getValue(c))));
         return getLetter(passOutputIntWithShifts(getValue(c)));
     }
 
-    public void addMapping(Plug p) throws MaxPopulationException {
-        if (this.mappings.size() < maxMappings) {
-            this.mappings.add(p);
-        } else {
-            throw new MaxPopulationException("Gear.mappings", this.mappings, this.maxMappings);
-        }
-    }
+
 
     public int getCurrentIndex() {
         return this.currentIndex;
@@ -137,15 +120,68 @@ public class Gear {
         return this.mappings;
     }
 
-    public void setMappings(String cypherbet) {
+    public void addMap(Plug p) throws MaxPopulationException {
+        if (this.mappings.size() < maxMappings) {
+            this.mappings.add(p);
+        } else {
+            throw new MaxPopulationException("Gear.mappings", this.mappings, this.maxMappings);
+        }
+    }
+
+    public void setMappings(String cypherbet) throws IncorrectCypherbetException {
+        if (cypherbet.length() != 26) {
+            throw new IncorrectCypherbetException(cypherbet, name + "<Gear>.setMapping", "Incorrect Length");
+        }
         char[] mapChars = cypherbet.toCharArray();
         for (char c : mapChars) {
             try {
-                this.addMapping(new Plug(this.mappings.size(), getValue(c)));
+                this.addMap(new Plug(this.mappings.size(), getValue(c)));
             } catch (MaxPopulationException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public char passInputCharWithShiftsAndPrints(char c) {
+        System.out.println("input char: " + c);
+        System.out.println("input value: " + getValue(c));
+        System.out.println("return value: " + passInputIntWithShifts(getValue(c)));
+        System.out.println("return letter: " + getLetter(passInputIntWithShifts(getValue(c))));
+        return getLetter(passInputIntWithShifts(getValue(c)));
+    }
+
+    public char passOutputCharWithShiftsAndPrints(char c) {
+        System.out.println("output char: " + c);
+        System.out.println("output value: " + getValue(c));
+        System.out.println("return value: " + passOutputIntWithShifts(getValue(c)));
+        System.out.println("return letter: " + getLetter(passOutputIntWithShifts(getValue(c))));
+        return getLetter(passOutputIntWithShifts(getValue(c)));
+    }
+
+    public int passInputIntWithShiftsAndPrints(int input) {
+        System.out.println("Gear " + name + " Passing Input");
+        System.out.println("Pre Rotation Input: " + getLetter(input));
+        input = (input + this.currentIndex) % 26;
+        System.out.println("Rotated Input [" + currentIndex + "]: " + getLetter(input));
+        int rtn = passInputInt(input);
+        System.out.println("Pre Rotation Return: " + getLetter(rtn));
+        rtn = (rtn + this.currentIndex) % 26;
+        System.out.println("Rotated Return [" + currentIndex + "]: " + getLetter(rtn));
+        return rtn;
+    }
+
+    public int passOutputIntWithShiftsAndPrints(int output) {
+        System.out.println("Gear " + name + " Passing Output");
+        System.out.println("Pre Rotation Output: " + getLetter(output));
+        output = (output - currentIndex) % 26;
+        if (output < 0) output += 26;
+        System.out.println("Rotated Output[" + currentIndex + "]: " + getLetter(output));
+        int rtn = passOutputInt(output);
+        System.out.println("Pre Rotation Return: " + getLetter(rtn));
+        rtn = (rtn - this.currentIndex) % 26;
+        if (rtn < 0) rtn += 26;
+        System.out.println("Rotated Return [" + currentIndex + "]: " + getLetter(rtn));
+        return rtn;
     }
 
     public String toString() {

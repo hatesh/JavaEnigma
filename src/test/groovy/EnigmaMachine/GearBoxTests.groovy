@@ -1,6 +1,7 @@
 package EnigmaMachine
 
-
+import Exceptions.IncorrectCypherbetException
+import Exceptions.MaxPopulationException
 import spock.lang.Specification
 import org.junit.experimental.categories.Category
 
@@ -21,6 +22,22 @@ class GearBoxTests extends Specification {
         expect: "The gearBox outputs G when A is inputted"
             assertThat(gearBox.encodeCharWithShift('A'.toCharacter()))
                     .isEqualTo('G'.toCharacter())
+    }
+    def "New Gear doesn't exceed max pairs"() {
+        given: "A new gear"
+            def gear = new Gear("IC", "DMTWSILRUYQNKFEJCAZBPGXOHV")
+        when: "Attempt to add another plug"
+            gear.addMap(new Plug())
+        then: "A MaxPopulationException is thrown"
+            thrown(MaxPopulationException)
+    }
+    def "Create Gear with incorrect cipherbet"() {
+        given: "A new gear is made"
+            def gear = new Gear("IC", "DMTWSILRUYQNKFEJCAZBPGXOHV")
+        when: "an incorrect cipherbet is mapped"
+            gear.setMappings("BAD")
+        then: "an IncorrectCypherbetException is thrown"
+            thrown(IncorrectCypherbetException)
     }
 
 }
